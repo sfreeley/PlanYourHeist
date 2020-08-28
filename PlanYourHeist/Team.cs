@@ -17,10 +17,10 @@ namespace PlanYourHeist
 
         //constructor
         // this is adding a team name 
-        public Team(string name)
-        {
-            this.name = name;
-        }
+        // public Team(string name)
+        // {
+        //     this.name = name;
+        // }
         // looping through our dictionary and calling the function print on each method
         public void ListTeamMembers()
         {
@@ -28,6 +28,11 @@ namespace PlanYourHeist
             {
                 member.Value.print();
             }
+        }
+
+        public void SumOfMembers()
+        {
+            Console.WriteLine($"The Number of Team Members In your group: {Group.Count}");
         }
 
     }
