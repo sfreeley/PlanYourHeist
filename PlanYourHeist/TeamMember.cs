@@ -24,6 +24,7 @@ namespace PlanYourHeist
             Console.WriteLine($"Courage Level: {CourageFactor}");
             Console.WriteLine();
         }
+
     }
 
 }

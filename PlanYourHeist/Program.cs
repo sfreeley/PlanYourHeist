@@ -7,12 +7,15 @@ namespace PlanYourHeist
         static void Main(string[] args)
         {
             Team myTeam = new Team();
+            int difficultyLevel = 100;
+
             while (true)
             {
                 Console.WriteLine("Menu");
                 Console.WriteLine(" 1) Add a Team Member");
                 Console.WriteLine(" 2) Print out Team Members");
-                Console.WriteLine(" 3) Exit");
+                Console.WriteLine(" 3) Skill Level");
+                Console.WriteLine(" 4) Exit");
                 Console.WriteLine();
                 Console.Write("> ");
 
@@ -30,13 +33,9 @@ namespace PlanYourHeist
                         {
                             myTeam.SumOfMembers();
                             myTeam.ListTeamMembers();
-                            return;
-                            // Console.WriteLine("Menu");
-                            // Console.WriteLine(" 1) Add a Team Member");
-                            // Console.WriteLine(" 2) Print out Team Members");
-                            // Console.WriteLine(" 3) Exit");
-                            // Console.WriteLine();
-                            // Console.Write("> ");
+
+                            // return;
+
                         }
                         Console.WriteLine("Enter team member's skill level");
                         string skillLevel = Console.ReadLine();
@@ -50,6 +49,18 @@ namespace PlanYourHeist
                         myTeam.ListTeamMembers();
                         break;
                     case "3":
+                        //if skillLevelSum is greater than difficulty level will be successful, otherwise will fail;
+                        int skillLevelSum = myTeam.SumSkillLevel();
+                        if (skillLevelSum >= difficultyLevel)
+                        {
+                            Console.WriteLine("You will succeed in your heist!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Sorry, you will fail");
+                        }
+                        break;
+                    case "4":
                         return;
                     default:
                         // if the "choice" variable didn't match any "case" we inform the user that they
@@ -57,22 +68,6 @@ namespace PlanYourHeist
                         Console.WriteLine("Invalid Menu Option. You should know better.");
                         break;
                 }
-
-                // Console.WriteLine("Plan Your Heist!");
-                // Console.WriteLine("Enter team name");
-                // string teamName = Console.ReadLine();
-                // Console.WriteLine("Enter team member's names");
-                // string name = Console.ReadLine();
-                // Console.WriteLine("Enter team member's skill level");
-                // string skillLevel = Console.ReadLine();
-                // Console.WriteLine("Enter team member's courage factor");
-                // string courageFactor = Console.ReadLine();
-
-                // Team Cheddar = new Team(teamName);
-                // TeamMember Faith = new TeamMember(name, skillLevel, courageFactor);
-                // Cheddar.addTeamMember(Faith);
-                // calling them with cheddar.ListTeamMembers
-                // Cheddar.ListTeamMembers();
 
             }
         }
