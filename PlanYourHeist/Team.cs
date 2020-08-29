@@ -6,22 +6,21 @@ namespace PlanYourHeist
 {
     public class Team
     {
-        public string name { get; set; }
-        public List<TeamMember> Group = new List<TeamMember>();
+        public Dictionary<string, TeamMember> Group = new Dictionary<string, TeamMember>();
 
         //  method
         // adding a team member into the dictionary of the group
         public void addTeamMember(TeamMember newTeamMember)
         {
-            Group.Add(newTeamMember);
+            Group.Add(newTeamMember.Name, newTeamMember);
         }
 
-        // looping through our list and calling the function print on each method
+        // looping through our dictionary and calling the function print on each method
         public void ListTeamMembers()
         {
-            foreach (TeamMember member in Group)
+            foreach (KeyValuePair<string, TeamMember> member in Group)
             {
-                member.print();
+                member.Value.print();
             }
         }
 
@@ -30,11 +29,13 @@ namespace PlanYourHeist
             Console.WriteLine($"The Number of Team Members In your group: {Group.Count}");
         }
 
-        //getting sum of list for property of SkillLevel
+        //getting sum of dictionary for property of SkillLevel
 
         public int SumSkillLevel()
         {
-            return Group.Sum(member => member.SkillLevel);
+
+            return Group.Sum(member => member.Value.SkillLevel);
+
         }
 
     }

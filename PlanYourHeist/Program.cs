@@ -6,17 +6,15 @@ namespace PlanYourHeist
     {
         static void Main(string[] args)
         {
+            //instanstiating a new Team class
             Team myTeam = new Team();
-            int luckValue = new Random().Next(-10, 11);
-            int difficultyLevel = 100 + luckValue;
 
             while (true)
             {
                 Console.WriteLine("Menu");
                 Console.WriteLine(" 1) Add a Team Member");
-                Console.WriteLine(" 2) Print out Team Members");
-                Console.WriteLine(" 3) Skill Level");
-                Console.WriteLine(" 4) Exit");
+                Console.WriteLine(" 2) Run Scenarios");
+                Console.WriteLine(" 3) Exit");
                 Console.WriteLine();
                 Console.Write("> ");
 
@@ -26,49 +24,70 @@ namespace PlanYourHeist
                 {
                     case "1":
                         Console.WriteLine("Plan Your Heist!");
-                        // Console.WriteLine("Enter team name");
-                        // string teamName = Console.ReadLine();
                         Console.WriteLine("Enter team member's name");
                         string name = Console.ReadLine();
                         if (name == "")
                         {
                             myTeam.SumOfMembers();
-                            myTeam.ListTeamMembers();
-
-                            // return;
-
+                            return;
                         }
                         Console.WriteLine("Enter team member's skill level");
                         string skillLevel = Console.ReadLine();
-                        Console.WriteLine("Enter team member's courage factor");
+                        Console.WriteLine("Enter team member's courage factor between 0 and 2");
                         string courageFactor = Console.ReadLine();
+                        while (int.Parse(courageFactor) > 2.0 || int.Parse(courageFactor) < 0)
+                        {
+                            Console.WriteLine("You need to input a number between 0 and 2...");
+                            Console.WriteLine("Enter team member's courage factor between 0 and 2");
+                            courageFactor = Console.ReadLine();
+                        }
 
                         TeamMember aNewTeamMember = new TeamMember(name, skillLevel, courageFactor);
                         myTeam.addTeamMember(aNewTeamMember);
                         break;
+
                     case "2":
-                        myTeam.ListTeamMembers();
+
+                        //if skillLevelSum is greater than difficulty level, heist will be successful, otherwise will fail;
+                        Console.WriteLine("What is the difficulty of your bank heist?");
+                        string difficultyLevel = Console.ReadLine();
+
+                        Console.WriteLine("How many trial runs do you want to run?");
+                        string trialRuns = Console.ReadLine();
+
+                        //variables to increment successful and unsuccessful trials
+                        int successfulTrials = 0;
+                        int unsuccessfulTrials = 0;
+
+                        for (int i = 0; i < int.Parse(trialRuns); i++)
+                        {
+                            int luckValue = new Random().Next(-10, 11);
+                            int difficultyTotal = int.Parse(difficultyLevel) + luckValue;
+                            int skillLevelSum = myTeam.SumSkillLevel();
+
+                            Console.WriteLine($"Team's Skill Level: {skillLevelSum}");
+                            Console.WriteLine($"Bank's difficulty Level: {difficultyTotal}");
+
+                            if (skillLevelSum >= difficultyTotal)
+                            {
+                                successfulTrials++;
+                                Console.WriteLine("You will succeed in your heist!");
+                            }
+                            else
+                            {
+                                unsuccessfulTrials++;
+                                Console.WriteLine("Sorry, you will fail and get thrown in jail. Be prepared.");
+                            }
+
+                        }
+                        Console.WriteLine($"You will be rich {successfulTrials} times out of {trialRuns}; you will go to jail {unsuccessfulTrials} times out of {trialRuns}");
+
                         break;
                     case "3":
-                        //if skillLevelSum is greater than difficulty level will be successful, otherwise will fail;
-                        int skillLevelSum = myTeam.SumSkillLevel();
-                        Console.WriteLine($"Team's Skill Level: {skillLevelSum}");
-                        Console.WriteLine($"Bank's difficulty Level: {difficultyLevel}");
-                        if (skillLevelSum >= difficultyLevel)
-                        {
-                            Console.WriteLine("You will succeed in your heist!");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Sorry, you will fail");
-                        }
-                        break;
-                    case "4":
                         return;
                     default:
-                        // if the "choice" variable didn't match any "case" we inform the user that they
-                        //  didn't choose a valid option
-                        Console.WriteLine("Invalid Menu Option. You should know better.");
+                        //if didn't choose valid option2
+                        Console.WriteLine("Invalid Menu Option. Select valid heist planning options.");
                         break;
                 }
 
