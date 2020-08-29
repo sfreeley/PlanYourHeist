@@ -86,7 +86,7 @@ namespace PlanYourHeist
                     case "3":
                         return;
                     default:
-                        //if didn't choose valid option2
+                        //if didn't choose valid option
                         Console.WriteLine("Invalid Menu Option. Select valid heist planning options.");
                         break;
                 }
